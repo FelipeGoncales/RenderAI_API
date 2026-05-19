@@ -35,71 +35,60 @@ def gen_image():
             model="gemini-2.5-flash",
             contents=[
                 image,
-                f"""You are a world-class architectural visualization expert and photorealistic CGI artist working for a custom furniture company.
-
-                The user sent this description in portuguese: "{prompt}"
-
-                STEP 1 — Analyze the reference 3D sketch and extract:
-                - Type of environment (bedroom, living room, kitchen, office, etc.)
-                - All furniture pieces present and their exact positions
-                - Room dimensions (small/medium/large based on proportions)
-                - Camera angle, height and perspective
-                - Window/door positions and sizes
-                - Any structural elements (niches, beams, steps, etc.)
-
-                STEP 2 — Generate a photorealistic image generation prompt in English that:
-                1. Uses your analysis to accurately describe the scene (correct furniture, correct layout)
-                2. Incorporates EVERYTHING the user described (colors, materials, style, objects, additions)
-                3. Produces output IDENTICAL to a real interior photograph — not a render, not CGI
-
-                STRICT RULES:
-                - NEVER invent or add furniture not present in the sketch
-                - NEVER remove furniture that exists in the sketch
-                - NEVER change furniture positions
-                - Preserve the EXACT camera angle from the reference
-                - Translate all color names the user mentioned to professional material descriptions in English
-                - If the user mentions brand color names (ex: "nox", "petale", "off-white"), describe them accurately as material finishes
-
+                f"""
+                You are an expert AI specialized in architectural image-to-image transformation.
+                
+                The user provided:
+                1. A reference interior design sketch/render
+                2. A description in Portuguese of desired modifications
+                
+                User request:
+                "{prompt}"
+                
+                TASK:
+                Transform the reference image into a highly photorealistic interior photograph while preserving the original architecture and layout.
+                
+                ANALYZE THE REFERENCE IMAGE:
+                - Identify the room type
+                - Identify all furniture and objects
+                - Identify materials, walls, floor, lighting and structure
+                - Identify camera angle and perspective
+                
+                STRICT PRESERVATION RULES:
+                - Preserve the EXACT room layout
+                - Preserve furniture positions
+                - Preserve camera angle and composition
+                - Preserve room proportions
+                - Preserve architectural structure
+                - Do NOT add new furniture unless explicitly requested
+                - Do NOT remove existing furniture unless explicitly requested
+                
+                MODIFICATION RULES:
+                - Apply ALL user-requested changes clearly and visibly
+                - Material changes must be obvious
+                - Color changes must be dominant and easy to notice
+                - Requested objects and finishes must appear realistically integrated
+                - Translate all Portuguese color/material descriptions into realistic professional interior design materials
+                
                 PHOTOREALISM RULES:
-                - Output must be indistinguishable from a DSLR interior photograph
-                - No visible sketch lines, no cartoon outlines, no CGI glow
-                - Surfaces must have real-world imperfections: subtle grain, micro-scratches, fabric wrinkles
-                - Lighting must cast physically accurate shadows
-                - Materials must have realistic specularity
-
-                OUTPUT FORMAT — return ONLY the prompt, no explanations, no preamble:
-
-                Transform this 3D sketch into a photograph-quality interior image. Preserve the EXACT camera angle, room layout, furniture placement and proportions from the reference. Do not move, add or remove any furniture.
-
-                **Environment identified:** [type of room and brief description from your analysis]
-
-                **Furniture & Layout:** [list each furniture piece with its position, exactly as found in sketch]
-
-                **Materials & Colors:** [translate and expand every material/color the user mentioned with professional finish descriptions]
-
-                **User Requests:** [all additional elements, objects or changes the user described]
-
-                **Lighting:**
-                - Analyze the sketch and describe the most realistic lighting for this specific environment
-                - Include natural light sources (windows, skylights) based on what exists in the sketch
-                - Add appropriate artificial lighting for the room type
-                - Physically accurate shadows, light bounce and ambient occlusion
-
-                **Photography Settings:**
-                - Camera: Sony A7R IV, wide angle lens appropriate for room size
-                - Aperture f/4.0, ISO 800, natural grain
-                - Perspective matching the original sketch angle exactly
-
-                **Photorealism:**
-                - Path-traced global illumination
-                - PBR materials with roughness and metallic maps
-                - 8K texture resolution
-                - Subsurface scattering on fabric and organic materials
-                - Realistic micro-surface detail on all materials
-                - No CGI artifacts, no render glow, no outline strokes
-                - Must pass as a real photograph taken on location
-
-                **Quality:** Architectural Digest / Dezeen magazine interior photography quality"""
+                - The final image must look like a real interior photo
+                - Realistic lighting and shadows
+                - Natural reflections
+                - Real-world material textures
+                - No CGI look
+                - No sketch appearance
+                - No cartoon effect
+                - No artificial outlines
+                
+                STYLE:
+                - Luxury interior photography
+                - Modern architectural photography
+                - Realistic exposure and contrast
+                - Physically accurate materials
+                
+                IMPORTANT:
+                The generated image must clearly reflect the user modifications while preserving the original environment structure.
+                """
             ]
         )
 
