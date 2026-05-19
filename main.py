@@ -35,60 +35,50 @@ def gen_image():
             model="gemini-2.5-flash",
             contents=[
                 image,
-                f"""
-                You are an expert AI specialized in architectural image-to-image transformation.
-                
-                The user provided:
-                1. A reference interior design sketch/render
-                2. A description in Portuguese of desired modifications
-                
-                User request:
-                "{prompt}"
-                
-                TASK:
-                Transform the reference image into a highly photorealistic interior photograph while preserving the original architecture and layout.
-                
-                ANALYZE THE REFERENCE IMAGE:
-                - Identify the room type
-                - Identify all furniture and objects
-                - Identify materials, walls, floor, lighting and structure
-                - Identify camera angle and perspective
-                
-                STRICT PRESERVATION RULES:
-                - Preserve the EXACT room layout
-                - Preserve furniture positions
-                - Preserve camera angle and composition
-                - Preserve room proportions
-                - Preserve architectural structure
-                - Do NOT add new furniture unless explicitly requested
-                - Do NOT remove existing furniture unless explicitly requested
-                
-                MODIFICATION RULES:
-                - Apply ALL user-requested changes clearly and visibly
-                - Material changes must be obvious
-                - Color changes must be dominant and easy to notice
-                - Requested objects and finishes must appear realistically integrated
-                - Translate all Portuguese color/material descriptions into realistic professional interior design materials
-                
-                PHOTOREALISM RULES:
-                - The final image must look like a real interior photo
-                - Realistic lighting and shadows
-                - Natural reflections
-                - Real-world material textures
-                - No CGI look
-                - No sketch appearance
-                - No cartoon effect
-                - No artificial outlines
-                
-                STYLE:
-                - Luxury interior photography
-                - Modern architectural photography
-                - Realistic exposure and contrast
-                - Physically accurate materials
-                
-                IMPORTANT:
-                The generated image must clearly reflect the user modifications while preserving the original environment structure.
-                """
+                f"""You are an expert prompt engineer for photorealistic interior rendering AI models.
+
+                Your ONLY job is to receive a 3D sketch image and a user description, and output a single image generation prompt that produces a PHOTOREALISTIC result — like a real interior photograph, not a 3D render.
+
+                User description in portuguese: "{prompt}"
+
+                ---
+
+                ANALYZE THE IMAGE FIRST:
+                Look carefully at the sketch and identify every detail before writing the prompt.
+
+                ---
+
+                NOW WRITE THE PROMPT following this exact structure:
+
+                Photorealistic interior photograph of a [room type]. This is a real photo taken with a Sony A7R IV camera, 20mm wide angle lens, f/4.0 aperture, ISO 800. The room is real, the materials are real, the lighting is real.
+
+                EXACT LAYOUT (do not change anything):
+                Describe each piece of furniture exactly where it appears in the sketch. Same positions, same proportions, same camera angle. The viewer should feel they are standing in the exact same spot as the 3D sketch camera.
+
+                MATERIALS:
+                [Translate every color/material the user mentioned into realistic material descriptions. Example: "nox" = deep matte charcoal wood with subtle grain, "petale" = warm matte beige-cream with soft rosé undertone]
+                - Walls: [from user or default: warm off-white with micro-texture plaster]
+                - Floor: [from user or default: large format porcelain tile, low-gloss with subtle reflections]
+                - Each furniture piece: [material, finish, texture]
+
+                USER ADDITIONS:
+                [Include every object, decoration or modification the user requested]
+
+                LIGHTING:
+                Soft warm interior lighting at 2700K. Natural light entering through the window creating soft directional shadows on the floor. Light bouncing off the floor onto furniture undersides. No harsh shadows. No blown highlights. Realistic ambient occlusion in room corners and under furniture.
+
+                PHOTOGRAPHIC REALISM — CRITICAL:
+                - ZERO sketch lines or outlines visible
+                - ZERO CGI glow or artificial sheen
+                - Real fabric wrinkles on bedding and soft surfaces
+                - Real wood grain texture on wooden surfaces
+                - Real dust particles visible in window light beam
+                - Grout lines visible between floor tiles
+                - Slight fingerprints or natural wear on matte surfaces
+                - The image must be completely indistinguishable from a real interior photograph
+                - Style: Architectural Digest magazine, professional interior photography
+
+                OUTPUT ONLY THE PROMPT. NO EXPLANATIONS. NO PREAMBLE. NO MARKDOWN HEADERS."""
             ]
         )
 
