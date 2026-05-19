@@ -144,11 +144,15 @@ def gen_image():
 
         for part in response.candidates[0].content.parts:
             if part.inline_data is not None:
-                img = Image.open(BytesIO(part.inline_data.data))
-                img_io = BytesIO()
-                img.save(img_io, format="PNG")
+        
+                img_io = BytesIO(part.inline_data.data)
+        
                 img_io.seek(0)
-                return send_file(img_io, mimetype="image/png")
+        
+                return send_file(
+                    img_io,
+                    mimetype="image/png"
+                )
 
         return jsonify({
             "error": "sem_imagem",
@@ -156,7 +160,7 @@ def gen_image():
         }), 400
 
     except genai_errors.ClientError as e:
-        if e.status_code == 429:
+        if e.code == 429:
             return jsonify({
                 "error": "limite_atingido",
                 "message": "Limite de gerações atingido. Tente novamente em alguns minutos."
@@ -168,7 +172,7 @@ def gen_image():
         }), 400
 
     except genai_errors.ServerError as e:
-        if e.status_code == 503:
+        if e.code == 503:
             return jsonify({
                 "error": "servico_indisponivel",
                 "message": "O serviço está com alta demanda no momento. Tente novamente em instantes."
